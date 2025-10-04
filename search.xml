@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<OpenSearchDescription
+ xmlns="http://a9.com/-/spec/opensearch/1.1/"
+ xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+<ShortName>searx-tool</ShortName>
+<Description>SearX Tool Metasearch Engine Index</Description>
+<InputEncoding>UTF-8</InputEncoding>
+<Image width="48" height="48" type="image/png">/icon/48.png</Image>
+<Url type="text/html" template="/index.html?q={searchTerms}"/>
+<moz:SearchForm>"/index.html"</moz:SearchForm>
+</OpenSearchDescription>

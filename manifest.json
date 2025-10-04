@@ -1,0 +1,32 @@
+{
+	"manifest_version": 3,
+	"name": "SearX Tool",
+    "author": "perditionecessaria",
+	"version": "1.0",
+	"description": "Build a local index of SearX instances.",
+	"icons": {
+		"48": "icon/48.png",
+		"92": "icon/92.png"
+	},
+	"permissions": [ "storage", "contextMenus", "tabs" ],
+	"action": {
+		"default_icon": {
+			"48": "icon/48.png",
+			"92": "icon/92.png"
+		},
+		"default_title": "SearX Tool",
+        "default_popup": "popup.html"
+	},
+	"background": {
+        "page": "/background.html",
+		"service_worker": "/service-worker.js"
+    },
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{fc7f48dd-670e-4341-9a23-6757f3c9d5f1}",
+            "data_collection_permissions": {
+              "required": [ "none" ]
+            }
+		}
+	}
+}

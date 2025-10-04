@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SearX Tool</title>
+<link rel='search' type='application/opensearchdescription+xml' href='/search' title='SearX Tool'>
+<link rel='icon' sizes='48x48' href='/icon/48.png'>
+<link rel='icon' sizes='92x92' href='/icon/92.png'>
+<script type='text/javascript' src='/searx-tool.js'></script>
+<script type='text/javascript' src='/search.js'></script>
+<style>
+.page {
+  display: block;
+  text-align: center;
+  align-items: center;
+  justify-items: center;
+}
+body {
+  width: 98dvw;
+  height: 98dvh;
+}
+footer {
+  text-align: center;
+}
+.search-bar {
+  padding: 2em;
+}
+nav {
+  text-align: right;
+  align-items: right;
+  justify-items: right;
+}
+li {
+  margin: 0.6em;
+}
+label {
+  margin-right: 0.2em;
+  margin-top: 0.2em;
+}
+button,checkbox,select,input {
+  margin-bottom: 0.8em;
+}
+.entry {
+  min-width: 67%;
+  border: 1px solid black;
+  resize: none;
+  field-sizing: content;
+  margin-top: 0.6em;
+}
+</style>
+</head>
+<body id='body'>
+<nav>
+<button id ='preferences'>Preferences</button>
+</nav>
+<div class='page'>
+<img src='/icon/searx-tool.png' class='banner'>
+<form action='javascript:'>
+<div class='search-bar'>
+<input type='search' id='search-entry' placeholder='Search for...'>
+<input type='submit' id='search-submit' action='javascript:'>
+</div>
+</form>
+</div>
+<footer>
+<p><a href='https://github.com/perditionecessaria/searx-tool'>SearX Tool</a> Version 1.0 by <a href='mailto:perditionecessaria@proton.me'>perditionecessaria</a></p>
+<footer>
+</body>
+</html>

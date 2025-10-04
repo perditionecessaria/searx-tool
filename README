@@ -1,0 +1,12 @@
+SearX Tool - Build a local index of SearX instances.
+
+SearX Tool presents a local search which selects from an index of SearX instances (think SearXNG).
+It regularly keeps up-to-date with one or more remote sources and/or allows maintaining a local index.
+By default a list of instances is fetched from https://searx.space.
+Other sources may be added, currently only through directly modifying the extension configuration.
+
+Note for Chrome users:
+There is currently no convenient way to manually add, remove or blacklist instances,
+as the Firefox extension loads the script modifying the right-click menu as part of a HTML page
+and Service Workers don't allow loading background pages by default.
+Accounting for this fact would require a substantial rewrite.

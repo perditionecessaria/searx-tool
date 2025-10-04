@@ -1,0 +1,6 @@
+The current version of the instance list format only depends on a small subset of the SearX Space instances.json.
+Future version might add new entries, but should still allow importing this subset.
+
+The configuration format is an exact representation of the contents of the web-extension local-storage.
+Importing a configuration hoists the result of JSON.parse() onto the install configuration.
+These entries can be considered stable.
