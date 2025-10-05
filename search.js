@@ -1,3 +1,5 @@
+import { reset, mergeSource, pollSources, searxTool } from '/searx-tool.js';
+
 async function search(query) {
   window.location = await searxTool(query);
 }

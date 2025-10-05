@@ -11,7 +11,7 @@ function computeHealth(data) {
     return 1;
 }
 
-function addInstance(url, data, instances) {
+export function addInstance(url, data, instances) {
   var i, node;
 
   node = {
@@ -28,7 +28,7 @@ function addInstance(url, data, instances) {
   instances.push(node);
 }
 
-function mergeSource(source, data, accept, instances) {
+export function mergeSource(source, data, accept, instances) {
   var key;
 
   if (!data.instances) {
@@ -45,46 +45,34 @@ function mergeSource(source, data, accept, instances) {
   source.timestamp = data.timestamp;
 }
 
-function syncSource(source, accept, instances) {
+async function syncSource(source, accept, instances) {
   var req, data;
 
-  req = new XMLHttpRequest();
-  req.onload = function() {
-    if (this.status == 0) {
-      console.error("Network error while syncing with "
-                    + source.name + " (" + source.url + ").");
+  req = await fetch(source.url);
+  if (req.status == 0) {
+    console.error("Network error while syncing with "
+                  + source.name + " (" + source.url + ").");
+  }
+  else if (req.status != 200) {
+    console.error(req.status + " " + req.statusText + " response while syncing with "
+                  + source.name + " (" + source.url + ").");
+  }
+  else {
+    try {
+      data = await req.json();
     }
-    else if (this.status != 200) {
-      console.error(this.status + " " + this.responseText + " response while syncing with "
-                    + source.name + " (" + source.url + ").");
+    catch (e) {
+      console.error(e.name + ": " + e.message + " while syncing with "
+                  + source.name +  " (" + source.url + ").");
+      return;
     }
+    if (source.timestamp == data.metadata.timestamp)
+      console.log("Instance list from " + source.name +  " (" + source.url + ") is already up-to-date.");
     else {
-      if (this.responseType == 'json')
-        data = this.response;
-      else if (this.responseType == '' || this.responseType == 'text') {
-        try {
-          data = JSON.parse(this.response);
-        }
-        catch (e) {
-          console.error(e.name + ": " + e.message + " while syncing with "
-                      + source.name +  " (" + source.url + ").");
-        }
-      }
-      else {
-        console.error("Received invalid response of type " + this.responseType + " while syncing with "
-                    + source.name +  " (" + source.url + ").");
-      }
-
-      if (source.timestamp == data.metadata.timestamp)
-        console.log("Instance list from " + source.name +  " (" + source.url + ") is already up-to-date.");
-      else {
-        console.log("Got most recent instance list from " + source.name +  " (" + source.url + ").");
-        mergeSource(source, data, accept, instances);
-      }
+      console.log("Got most recent instance list from " + source.name +  " (" + source.url + ").");
+      mergeSource(source, data, accept, instances);
     }
-  };
-  req.open('GET', source.url, false);
-  req.send();
+  }
 }
 
 async function needSync(src) {
@@ -95,8 +83,8 @@ async function needSync(src) {
          < Date.now() - src['last-sync'];
 }
 
-async function pollSources(dosync) {
-  var cfg, accept, dirty;
+export async function pollSources(dosync) {
+  var i, cfg, accept, dirty;
 
   cfg = await chrome.storage.local.get([
     'authoritative', 'sources', 'instances', 'instance-blacklist'
@@ -116,7 +104,7 @@ async function pollSources(dosync) {
   for (i = 0; i != cfg.sources.length; i++)
     if (dosync || !cfg.authoritative
         || await needSync(cfg.sources[i])) {
-      syncSource(cfg.sources[i], accept, cfg.instances);
+      await syncSource(cfg.sources[i], accept, cfg.instances);
       cfg.sources[i]['last-sync'] = Date.now();
       dirty = true;
     }
@@ -127,7 +115,7 @@ async function pollSources(dosync) {
   }
 }
 
-async function reset() {
+export async function reset() {
   await chrome.storage.local.clear();
   await chrome.storage.local.set({
     'polling-interval': 604800, /* weekly */
@@ -144,8 +132,8 @@ async function reset() {
   });
 }
 
-async function searxTool(string) {
-  var cfg, found, array, accept, i, n;
+export async function searxTool(string) {
+  var cfg, url, found, array, accept, i, n;
 
   pollSources();
 

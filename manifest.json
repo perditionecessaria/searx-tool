@@ -18,8 +18,9 @@
         "default_popup": "popup.html"
 	},
 	"background": {
-        "page": "/background.html",
-		"service_worker": "/service-worker.js"
+        "page": "background.html",
+		"service_worker": "/background.js",
+        "type": "module"
     },
 	"browser_specific_settings": {
 		"gecko": {
