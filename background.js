@@ -58,7 +58,7 @@ if (chromeCompatibility) {
     });
     await chrome.contextMenus.create({
       'id': 'searx-tool-unblacklist',
-      'title': 'Blacklist Instance',
+      'title': 'Unblacklist Instance',
       'contexts': [ 'action' ],
     });
 
