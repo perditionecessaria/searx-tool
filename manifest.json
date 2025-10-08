@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "SearX Tool",
     "author": "perditionecessaria",
-	"version": "1.0",
+	"version": "1.1",
 	"description": "Build a local index of SearX instances.",
 	"icons": {
 		"48": "icon/48.png",
