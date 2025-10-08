@@ -10,6 +10,10 @@ q = (new URLSearchParams(window.location)).get('q');
 if (q && q.length != 0)
   search(q);
 
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.getElementById('banner').src = '/icon/the-eye.png';
+}
+
 window.onload = function() {
   document.getElementById('search-submit').onclick = function() {
     search(document.getElementById('search-entry').value);
